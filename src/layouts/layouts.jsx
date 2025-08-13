@@ -4,9 +4,11 @@ import Footer from "../components/footer";
 import Sidebar from "../components/sidebar";
 import Navigate from "../components/navigate";
 import { renderStep } from "../components/renderStep";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const Layouts = () => {
     const [currentStep, setCurrentStep] = useState(1);
+    const isDesktop = useMediaQuery("(min-width: 768px)");
     const totalSteps = 3;
   
     const goNext = () => setCurrentStep((s) => Math.min(totalSteps, s + 1));
@@ -26,7 +28,7 @@ const Layouts = () => {
                />
               <div className="border border-gray-200 m-4 mt-0 rounded-2xl h-[calc(100vh-240px)]">
                 <div className="flex w-full h-full">
-                   <Sidebar activeStep={currentStep} />
+                  {isDesktop && <Sidebar activeStep={currentStep} />}
                    <div className="flex-1 p-4 pb-0 overflow-auto">
                      {renderStep(currentStep)}
                   </div>
