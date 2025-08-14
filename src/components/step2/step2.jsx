@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { demoTree,categories } from "../../constants/mockedData";
+import { demoTree, categories } from "../../constants/mockedData";
 import TriStateCheckbox from "./tristatecheckbox";
 import { ChevronRight } from "lucide-react";
 import { collectLeafIds } from "./nodeState";
@@ -8,10 +8,12 @@ import Table from "./table";
 
 function computeNodeState(node, categoryId, selectedByCategory) {
   const selectedSet = selectedByCategory[categoryId];
+
   if (node.type === "person") {
     return selectedSet.has(node.id) ? "checked" : "unchecked";
   }
   const leaves = collectLeafIds(node);
+
   if (leaves.length === 0) return "unchecked";
   let selectedCount = 0;
   for (const leafId of leaves) {
@@ -22,7 +24,7 @@ function computeNodeState(node, categoryId, selectedByCategory) {
   return "indeterminate";
 }
 
-const Step2 = ({currentStep}) => {
+const Step2 = ({ currentStep }) => {
   const [selectedByCategory, setSelectedByCategory] = useState(() => {
     return {
       cat1: new Set(),
@@ -66,6 +68,7 @@ const Step2 = ({currentStep}) => {
 
   const renderRow = (node, depth = 0) => {
     const isGroup = node.type !== "person";
+
     return (
       <tr key={node.id} className="border-b border-gray-100 ">
         {/* Name cell */}
@@ -74,6 +77,20 @@ const Step2 = ({currentStep}) => {
             className="flex items-center gap-3"
             style={{ paddingLeft: depth * 16 }}
           >
+            {!isGroup ? (
+              
+              <span className="h-8 w-8 grid place-items-center rounded-full bg-gray-100 text-base">
+                {node.avatar || "👤"}
+              </span>
+            ):null}
+            <div>
+              <div className="text-sm font-medium text-gray-900">
+                {node.label}
+              </div>
+              {node.subtitle && (
+                <div className="text-xs text-gray-500">{node.subtitle}</div>
+              )}
+            </div>
             {isGroup ? (
               <button
                 onClick={() => toggleExpand(node.id)}
@@ -88,19 +105,7 @@ const Step2 = ({currentStep}) => {
                   <ChevronRight size={16} />
                 </span>
               </button>
-            ) : (
-              <span className="h-8 w-8 grid place-items-center rounded-full bg-gray-100 text-base">
-                {node.avatar || "👤"}
-              </span>
-            )}
-            <div>
-              <div className="text-sm font-medium text-gray-900">
-                {node.label}
-              </div>
-              {node.subtitle && (
-                <div className="text-xs text-gray-500">{node.subtitle}</div>
-              )}
-            </div>
+            ) : null}
           </div>
         </td>
 
@@ -131,13 +136,13 @@ const Step2 = ({currentStep}) => {
       return [row];
     });
   };
-console.log(renderTree(demoTree));
+  //console.log(renderTree(demoTree));
 
   return (
     <section>
       <Heading currentStep={currentStep} />
       <div className="w-full mt-4 rounded-t-xl  overflow-auto h-[calc(100vh-333px)] relative">
-       <Table renderTree={renderTree}/>
+        <Table renderTree={renderTree} />
       </div>
     </section>
   );

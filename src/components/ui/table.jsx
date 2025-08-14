@@ -1,3 +1,5 @@
+import { categories } from "../../constants/mockedData";
+
 const Table = ({ headerCell, rows, getInitials, renderYesNo }) => {
   return (
     <>
@@ -7,15 +9,14 @@ const Table = ({ headerCell, rows, getInitials, renderYesNo }) => {
             {headerCell("User", "name")}
             {headerCell("Office", "office")}
             {headerCell("Team", "team")}
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 border-r-0 border-gray-100">
-              Category 1
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 border-r-0 border-gray-100">
-              Category 2
-            </th>
-            <th className="px-4 py-3 text-left text-xs font-medium text-gray-600 border-r-0 border-gray-100">
-              Category 3
-            </th>
+            {categories.map((item) => (
+              <th
+                key={item.id}
+                className="px-4 py-3 text-left text-xs font-medium text-gray-600 border-r-0 border-gray-100"
+              >
+                {item.label}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-100 ">
@@ -29,8 +30,12 @@ const Table = ({ headerCell, rows, getInitials, renderYesNo }) => {
                   <span className="text-sm text-gray-900">{row.name}</span>
                 </div>
               </td>
-              <td className="px-4 py-3 text-sm text-gray-700 border-r-1 border-gray-100">{row.office}</td>
-              <td className="px-4 py-3 text-sm text-gray-700 border-r-1 border-gray-100">{row.team}</td>
+              <td className="px-4 py-3 text-sm text-gray-700 border-r-1 border-gray-100">
+                {row.office}
+              </td>
+              <td className="px-4 py-3 text-sm text-gray-700 border-r-1 border-gray-100">
+                {row.team}
+              </td>
               <td className="px-4 py-3 text-sm text-gray-700 border-r-1 border-gray-100">
                 {renderYesNo(row.cat1)}
               </td>
