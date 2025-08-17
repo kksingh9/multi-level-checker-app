@@ -9,6 +9,7 @@ function TriStateCheckbox({ state, onToggle }) {
     }, [state])
   
     return (
+      
       <input
         ref={inputRef}
         type="checkbox"
