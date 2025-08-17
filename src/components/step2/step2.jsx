@@ -111,8 +111,8 @@ const Step2 = ({ currentStep }) => {
         {categories.map((cat) => {
           const state = computeNodeState(node, cat.id, selectedByCategory);
           return (
-            <td key={cat.id} className={`py-3 px-3 border-r-1 border-gray-100 `}  >
-              <div style={{ marginLeft: depth * 16 }}>
+            <td key={cat.id} className={`py-3 px-3 border-r-1 border-gray-100  `}  >
+              <div style={{ marginLeft: depth * 36 }} className="flex justify-center">
               <TriStateCheckbox
                 state={state}
                 onToggle={(shouldSelect) =>
