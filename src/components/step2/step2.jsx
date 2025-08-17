@@ -71,7 +71,7 @@ const Step2 = ({ currentStep }) => {
 
     return (
       <tr key={node.id} className="border-b border-gray-100 ">
-        {/* Name cell */}
+     
         <td className="py-3 pl-4 pr-3 border-r-1 border-gray-100">
           <div
             className="flex items-center gap-3"
@@ -108,18 +108,18 @@ const Step2 = ({ currentStep }) => {
             ) : null}
           </div>
         </td>
-
-        {/* Category columns */}
         {categories.map((cat) => {
           const state = computeNodeState(node, cat.id, selectedByCategory);
           return (
-            <td key={cat.id} className="py-3 px-3 border-r-1 border-gray-100">
+            <td key={cat.id} className={`py-3 px-3 border-r-1 border-gray-100 `}  >
+              <div style={{ marginLeft: depth * 16 }}>
               <TriStateCheckbox
                 state={state}
                 onToggle={(shouldSelect) =>
                   toggleNodeForCategory(node, cat.id, shouldSelect)
                 }
               />
+              </div>
             </td>
           );
         })}
