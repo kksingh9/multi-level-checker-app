@@ -1,5 +1,5 @@
-import { useRef,useEffect } from "react"
-function TriStateCheckbox({ state, onToggle }) {
+import React ,{ useRef,useEffect } from "react"
+const TriStateCheckbox = React.memo(({ state, onToggle }) => {
     const inputRef = useRef(null)
   
     useEffect(() => {
@@ -7,6 +7,7 @@ function TriStateCheckbox({ state, onToggle }) {
         inputRef.current.indeterminate = state === 'indeterminate'
       }
     }, [state])
+  console.log(inputRef);
   
     return (
       
@@ -18,6 +19,6 @@ function TriStateCheckbox({ state, onToggle }) {
         className="h-4 w-4 accent-blue-500 rounded border-gray-300 cursor-pointer"
       />
     )
-  }
+  })
 
   export default TriStateCheckbox;

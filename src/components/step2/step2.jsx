@@ -1,28 +1,11 @@
-import { useState } from "react";
-import { demoTree, categories } from "../../constants/mockedData";
+import { useCallback, useState } from "react";
+import { categories } from "../../constants/mockedData";
 import TriStateCheckbox from "./tristatecheckbox";
 import { ChevronRight } from "lucide-react";
 import { collectLeafIds } from "./nodeState";
 import Heading from "../heading";
 import Table from "./table";
-
-function computeNodeState(node, categoryId, selectedByCategory) {
-  const selectedSet = selectedByCategory[categoryId];
-
-  if (node.type === "person") {
-    return selectedSet.has(node.id) ? "checked" : "unchecked";
-  }
-  const leaves = collectLeafIds(node);
-
-  if (leaves.length === 0) return "unchecked";
-  let selectedCount = 0;
-  for (const leafId of leaves) {
-    if (selectedSet.has(leafId)) selectedCount += 1;
-  }
-  if (selectedCount === 0) return "unchecked";
-  if (selectedCount === leaves.length) return "checked";
-  return "indeterminate";
-}
+import { computeNodeState } from "./nodeState";
 
 const Step2 = ({ currentStep }) => {
   const [selectedByCategory, setSelectedByCategory] = useState(() => {
@@ -57,14 +40,14 @@ const Step2 = ({ currentStep }) => {
     });
   };
 
-  const toggleNodeForCategory = (node, categoryId, shouldSelect) => {
+  const toggleNodeForCategory = useCallback((node, categoryId, shouldSelect) => {
     if (node.type === "person") {
       setMany(categoryId, [node.id], shouldSelect);
     } else {
       const leaves = collectLeafIds(node);
       setMany(categoryId, leaves, shouldSelect);
     }
-  };
+  },[]);
 
   const renderRow = (node, depth = 0) => {
     const isGroup = node.type !== "person";

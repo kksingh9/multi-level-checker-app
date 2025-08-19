@@ -2,8 +2,22 @@ import Heading from "../heading";
 import Input from "../ui/Input";
 import Label from "../ui/label";
 import TextArea from "../ui/textArea";
+import { useEffect } from "react";
 
 const Step1 = ({currentStep}) => {
+  useEffect(() => {
+    async function fetchData(){
+      try{
+        const res = await fetch(`https://www.sendbestgift.com/`)
+        console.log(res);
+        
+      }catch(e){
+
+      }
+
+    }
+    fetchData()
+  },[])
   return (
     <section>
       <Heading currentStep={currentStep} />
